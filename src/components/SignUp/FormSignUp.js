@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { useState } from "react"
-import {logIn} from '../../service/AxiosService'
+import {signUp} from '../../service/AxiosService'
 import { useNavigate } from "react-router-dom"
 
-export default function FormLogIn () {
+export default function FormSignUp() {
 
     const [form, setForm] = useState({})
     const navigate = useNavigate()
@@ -23,31 +23,38 @@ export default function FormLogIn () {
         const body = {
             ...form,
         }
-        const promise = logIn(body)
-        promise.then((res) => {console.log(res.data); navigate('/habitos')})
-        promise.catch(() => alert('Dados inválidos, tente novamente'))
+        const promise = signUp(body)
+        promise.then((res) => {console.log(res.data); navigate('/')})
+        promise.catch(() => alert('Esse email já está cadastrado, use outro ou faça log-in'))
 
     }
 
 
-
-
     return (
         <Form>
-            <form onSubmit={sendForm}>
-                <input type="email" name="email" placeholder=" email" required onChange={(e) =>
+        <form onSubmit={sendForm}>
+            <input type="email" name="email" placeholder=" email" required onChange={(e) =>
               handleForm({
                 name: e.target.name,
                 value: e.target.value,})}/>
-                <input type="password" name="password" placeholder=" senha" required onChange={(e) =>
-              handleForm({
-                name: e.target.name,
-                value: e.target.value,})}/>
-                <button type="submit">Entrar</button>
-            </form>
-        </Form>
+            <input type="password" name="password" placeholder=" senha" required onChange={(e) =>
+                handleForm({
+                  name: e.target.name,
+                  value: e.target.value,})}/>
+            <input type="text" name="name" placeholder=" nome" required onChange={(e) =>
+                handleForm({
+                  name: e.target.name,
+                  value: e.target.value,})}/>
+            <input type="url" name="image" placeholder=" foto" required onChange={(e) =>
+                handleForm({
+                  name: e.target.name,
+                  value: e.target.value,})}/>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </Form>
     )
-} 
+}
+
 
 const Form = styled.div`
     display: flex;
@@ -81,4 +88,5 @@ button {
     cursor: pointer;
 }
 `
+
 

@@ -1,21 +1,22 @@
-import FormLogIn from "./FormLogIn"
+import FormSignUp from "./FormSignUp"
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import logo from '../../assets/chart.png'
 
-export default function LogIn() {
+export default function SingUp() {
     return (
-        <Wrapper>
+        
+            <Wrapper>
             <Logo>
                 <img src={logo} alt="" />
                 <h1>TrackIt</h1>
             </Logo>
-            <FormLogIn />
-            <Link to="/cadastro">
-                <span>Não tem uma conta? Cadastre-se!</span>
+            <FormSignUp />
+            <Link to="/">
+                <span>Já tem uma conta? Faça LogIn!</span>
             </Link>
-
         </Wrapper>
+
     )
 }
 
@@ -25,7 +26,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 88vh;
+    height: 96vh;
     width: 100vw;
 span {
     display: flex;
