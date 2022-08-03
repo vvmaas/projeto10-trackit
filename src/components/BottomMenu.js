@@ -30,6 +30,7 @@ span {
     font-size: 18px;
     margin-bottom: 5px;
     text-align: center;
+    cursor: pointer;
 }
 div {
     height: 90px;
@@ -37,5 +38,6 @@ div {
     border-radius: 70px;
     background: #52B6FF;
     margin-bottom: 40px;
+    cursor: pointer;
 }
 `

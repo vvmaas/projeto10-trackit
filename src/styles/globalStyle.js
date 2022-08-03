@@ -58,7 +58,7 @@ a {
 
 body {
   font-family: 'Lexend Deca', sans-serif;	
-  background-color: #efefef;
+  background-color: white;
 }
 `;
 

@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 export default function TopBar() {
     const { user } = useContext(UserContext)
-    console.log(user)
 
     return(
         <Wrapper>

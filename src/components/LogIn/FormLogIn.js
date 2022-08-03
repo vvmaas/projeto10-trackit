@@ -10,7 +10,7 @@ export default function FormLogIn () {
     const [form, setForm] = useState({})
     const [disable, setDisable] = useState(false)
     const navigate = useNavigate()
-    const { user, setUser } = useContext(UserContext)
+    const { setUser } = useContext(UserContext)
 
 
 
@@ -43,7 +43,7 @@ export default function FormLogIn () {
               handleForm({
                 name: e.target.name,
                 value: e.target.value,})}/>
-                <input disabled={disable ? "disabled" : ""} type="password" name="password" placeholder=" senha" required onChange={(e) =>
+                <input type="password" name="password" placeholder=" senha" required onChange={(e) =>
               handleForm({
                 name: e.target.name,
                 value: e.target.value,})}/>

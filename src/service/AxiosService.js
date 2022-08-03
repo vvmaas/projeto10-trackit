@@ -16,7 +16,7 @@ function logIn(body) {
 function postHabit(body, token) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.post(`${BASE_URL}/habits`, body, config)
@@ -26,7 +26,7 @@ function postHabit(body, token) {
 function getHabits(token) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.get(`${BASE_URL}/habits`, config)
@@ -36,7 +36,7 @@ function getHabits(token) {
 function deleteHabit(token, id) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.delete(`${BASE_URL}/habits/${id}`, config)
@@ -46,7 +46,7 @@ function deleteHabit(token, id) {
 function getHabitsToday(token) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.get(`${BASE_URL}/habits/today`, config)
@@ -56,7 +56,7 @@ function getHabitsToday(token) {
 function habitDone(token, id) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.post(`${BASE_URL}/habits/${id}/check`, config)
@@ -66,7 +66,7 @@ function habitDone(token, id) {
 function habitUndone(token, id) {
     const config = {
         headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
     }
     const promise = axios.post(`${BASE_URL}/habits/${id}/uncheck`, config)
