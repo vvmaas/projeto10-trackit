@@ -1,12 +1,17 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import {logIn} from '../../service/AxiosService'
 import { useNavigate } from "react-router-dom"
+import { ThreeDots } from "react-loader-spinner"
+import UserContext from "../../contexts/UserContext"
 
 export default function FormLogIn () {
 
     const [form, setForm] = useState({})
+    const [disable, setDisable] = useState(false)
     const navigate = useNavigate()
+    const { user, setUser } = useContext(UserContext)
+
 
 
     function handleForm({ name, value }){
@@ -19,31 +24,30 @@ export default function FormLogIn () {
 
     function sendForm(e) {
         e.preventDefault();
+        setDisable(true)
         console.log(form);
         const body = {
             ...form,
         }
         const promise = logIn(body)
-        promise.then((res) => {console.log(res.data); navigate('/habitos')})
-        promise.catch(() => alert('Dados inválidos, tente novamente'))
+        promise.then((res) => {setUser(res.data); navigate('/habitos');})
+        promise.catch(() => {alert('Dados inválidos, tente novamente'); setDisable(false)})
 
     }
 
 
-
-
     return (
-        <Form>
+        <Form disabled={disable}>
             <form onSubmit={sendForm}>
-                <input type="email" name="email" placeholder=" email" required onChange={(e) =>
+                <input disabled={disable ? "disabled" : ""} type="email" name="email" placeholder=" email" required onChange={(e) =>
               handleForm({
                 name: e.target.name,
                 value: e.target.value,})}/>
-                <input type="password" name="password" placeholder=" senha" required onChange={(e) =>
+                <input disabled={disable ? "disabled" : ""} type="password" name="password" placeholder=" senha" required onChange={(e) =>
               handleForm({
                 name: e.target.name,
                 value: e.target.value,})}/>
-                <button type="submit">Entrar</button>
+                <button type="submit">{disable ? <ThreeDots color="white" height={30} width={80} /> : 'Enviar'}</button>
             </form>
         </Form>
     )
@@ -60,9 +64,9 @@ input {
     width: 85vw;
     height: 45px;
     margin-bottom: 5px;
-    background: #FFFFFF;
+    background: ${props => props.disabled ? '#d5d5d5' : '#ffffff'};
     color: gray;
-    border: 1px solid #D5D5D5;
+    border: 1px solid ${props => props.disabled ? 'black' : '#d5d5d5'};
     border-radius: 5px;
     font-size: 20px;
 }
@@ -75,6 +79,7 @@ button {
     justify-content: center;
     text-align: center;
     background: #52B6FF;
+    opacity: ${props => props.disabled ? 0.7 : 1};
     color: #FFFFFF;
     border-radius: 4.63636px;
     font-size: 21px;
