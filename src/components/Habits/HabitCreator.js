@@ -11,7 +11,7 @@ function DayButton({day, dayClick, index, selected}) {
     )
 }
 
-export default function HabitCreator({}) {
+export default function HabitCreator({setHabits, habits}) {
 
     const [weekDays, setWeekDays] = useState([{id: 'D', selected: false}, {id: 'S', selected: false}, {id: 'T', selected: false}, {id: 'Q', selected: false}, {id: 'Q', selected: false}, {id: 'S', selected: false}, {id: 'S', selected: false}])
     const { user } = useContext(UserContext)
@@ -28,8 +28,6 @@ export default function HabitCreator({}) {
             setWeekDays([...weekDays, weekDays[index].selected = false])
         }
     }
-
-
     console.log(days)
     function dayClick(index) {
         selectDay(index)
@@ -58,27 +56,21 @@ export default function HabitCreator({}) {
         }
         body = {...body, name: name, days: days}
         const promise = postHabit(body, user.token)
-        promise.then((res) => {console.log(res); setCreate(false);})
+        promise.then((res) => {console.log(res);setHabits([...habits, res.data]); setCreate(false);})
     }
 
     return (
         <Wrapper disable={disable}>
             <form onSubmit={saveHabit}>
-
                 <Input disabled={disable ? 'disabled' : ''} placeholder=" nome do hábito" type='text' required onChange={e=> setName(e.target.value)}></Input>
-                
                 <Days>
                     {weekDays.map((d, index) => index < 7? <DayButton day={d.id} dayClick={dayClick} index={index} selected={d.selected}/> : "")}
                 </Days>
-               
-
                 <Buttons disable={disable}>
                     <span onClick={() => setCreate(false)}>Cancelar</span>
                     <button type='submit' >{disable ? <ThreeDots color="white" height={30} width={80} /> : 'Salvar'}</button>
                 </Buttons>
             </form>
-
-
         </Wrapper>
     )
 }
@@ -86,7 +78,7 @@ export default function HabitCreator({}) {
 const Wrapper = styled.div`
     background: #FFFFFF;
     border-radius: 5px;
-    margin: 30px auto 0 auto;
+    margin: 30px auto 20px auto;
     width: 90vw;
     padding-left: 2vw;
     padding-right: 2vw;
