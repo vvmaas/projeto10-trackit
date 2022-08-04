@@ -1,8 +1,10 @@
 import { useContext, useEffect} from "react"
+import { useNavigate } from "react-router-dom"
 import { getHabits } from "../../service/AxiosService"
 import UserContext from "../../contexts/UserContext"
 import HabitCreateContext from "../../contexts/HabitCreateContext"
 import HabitsContext from "../../contexts/HabitsContext"
+import ConcludedContext from "../../contexts/ConcludedContext"
 import TopBar from "../TopBar"
 import BottomMenu from "../BottomMenu"
 import HabitCreator from "./HabitCreator"
@@ -12,16 +14,37 @@ import styled from "styled-components"
 export default function Habits() {
     const {habits, setHabits} = useContext(HabitsContext)
     const {create, setCreate} = useContext(HabitCreateContext)
+    const { setConcluded } = useContext(ConcludedContext)
     const { user } = useContext(UserContext)
-    console.log(habits)
-    
+    const navigate = useNavigate()
+    console.log(user)
+   
 
     
 
     useEffect(()=>{
+        if (user.token === undefined){
+            navigate('/')
+        }
         getHabits(user.token).then((res) => {setHabits(res.data)})
         console.log(user.token)
     }, [])
+
+    function updater(data) {
+        console.log(data);
+        let nDone = 0
+        let nTotal = 0
+        for (let i = 0; i < data.length ; i++) {
+            console.log(data[i].done)
+            if (data[i].done === true) {
+                nDone++
+            }
+            nTotal++
+        }
+        console.log(nDone, nTotal)
+        let percentage = Math.round((nDone/nTotal)*100)
+        isNaN(percentage) ? setConcluded(0) : setConcluded(percentage)
+    }
 
     return(
         <Background>
@@ -32,10 +55,10 @@ export default function Habits() {
             <div onClick={() => setCreate(!create)}>+</div>
             </CreateHabit>
 
-            {create ? <HabitCreator setHabits={setHabits} habits={habits}/> : ""}
+            {create ? <HabitCreator setHabits={setHabits} habits={habits} updater={updater}/> : ""}
 
             <HabitList>
-                {habits.length > 0 ? habits.map((habit) => <HabitCard key={habit.id} id={habit.id} name={habit.name} days={habit.days} setHabits={setHabits} />) : <span>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</span>}
+                {habits.length > 0 ? habits.map((habit) => <HabitCard key={habit.id} id={habit.id} name={habit.name} days={habit.days} setHabits={setHabits} updater={updater} />) : <span>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</span>}
             </HabitList>
 
         </Wrapper>

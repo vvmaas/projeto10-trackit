@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useContext, useState } from "react"
 import UserContext from "../../contexts/UserContext"
 import HabitCreateContext from "../../contexts/HabitCreateContext"
-import { postHabit } from "../../service/AxiosService"
+import { postHabit, getHabitsToday } from "../../service/AxiosService"
 import { ThreeDots } from "react-loader-spinner"
 
 function DayButton({day, dayClick, index, selected}) {
@@ -11,7 +11,7 @@ function DayButton({day, dayClick, index, selected}) {
     )
 }
 
-export default function HabitCreator({setHabits, habits}) {
+export default function HabitCreator({setHabits, habits, updater}) {
 
     const [weekDays, setWeekDays] = useState([{id: 'D', selected: false}, {id: 'S', selected: false}, {id: 'T', selected: false}, {id: 'Q', selected: false}, {id: 'Q', selected: false}, {id: 'S', selected: false}, {id: 'S', selected: false}])
     const { user } = useContext(UserContext)
@@ -56,7 +56,8 @@ export default function HabitCreator({setHabits, habits}) {
         }
         body = {...body, name: name, days: days}
         const promise = postHabit(body, user.token)
-        promise.then((res) => {console.log(res);setHabits([...habits, res.data]); setCreate(false);})
+        promise.then((res) => {getHabitsToday(user.token).then(res => updater(res.data));setHabits([...habits, res.data]); setCreate(false);})
+
     }
 
     return (

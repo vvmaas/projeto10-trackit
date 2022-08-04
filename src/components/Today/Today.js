@@ -23,6 +23,7 @@ export default function Today(){
     }, [])
 
     function firstRender(data) {
+        setHabitsToday(data)
         let nDone = 0
         let nTotal = 0
         for (let i = 0; i < data.length ; i++) {
@@ -32,9 +33,9 @@ export default function Today(){
             nTotal++
         }
         let percentage = Math.round((nDone/nTotal)*100)
+        isNaN(percentage) ? setConcluded(0) : setConcluded(percentage)
         setDone(nDone)
-        setConcluded(percentage)
-        setHabitsToday(data)
+        
     }
 
     function setPercent(mod) {
@@ -49,7 +50,6 @@ export default function Today(){
         }
         setConcluded(percentage)
     }
-
 
 
     return (

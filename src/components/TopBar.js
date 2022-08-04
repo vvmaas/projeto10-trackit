@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Link } from "react-router-dom"
 import UserContext from "../contexts/UserContext"
 import styled from "styled-components"
 
@@ -7,7 +8,10 @@ export default function TopBar() {
 
     return(
         <Wrapper>
+        <Link to="/">
         <h1>TrackIt</h1>
+        </Link>
+        
         <img src={user.image} />
         </Wrapper>
     )
