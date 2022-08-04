@@ -59,7 +59,7 @@ function habitDone(token, id) {
             Authorization: `Bearer ${token}`
         }
     }
-    const promise = axios.post(`${BASE_URL}/habits/${id}/check`, config)
+    const promise = axios.post(`${BASE_URL}/habits/${id}/check`, null, config)
     return promise
 }
 
@@ -69,7 +69,7 @@ function habitUndone(token, id) {
             Authorization: `Bearer ${token}`
         }
     }
-    const promise = axios.post(`${BASE_URL}/habits/${id}/uncheck`, config)
+    const promise = axios.post(`${BASE_URL}/habits/${id}/uncheck`, null, config)
     return promise
 }
 

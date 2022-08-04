@@ -46,7 +46,7 @@ const HabitCardWrap = styled.div`
     position: relative;
 h1 {
     font-size: 20px;
-    margin: 0 0 8px 15px
+    margin: 0 25px 8px 15px
 }
 img {
     width: 13px;

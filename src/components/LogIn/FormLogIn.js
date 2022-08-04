@@ -30,7 +30,7 @@ export default function FormLogIn () {
             ...form,
         }
         const promise = logIn(body)
-        promise.then((res) => {setUser(res.data); navigate('/habitos');})
+        promise.then((res) => {setUser(res.data); navigate('/hoje');})
         promise.catch(() => {alert('Dados inválidos, tente novamente'); setDisable(false)})
 
     }

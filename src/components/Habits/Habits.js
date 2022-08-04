@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect} from "react"
 import { getHabits } from "../../service/AxiosService"
 import UserContext from "../../contexts/UserContext"
 import HabitCreateContext from "../../contexts/HabitCreateContext"
+import HabitsContext from "../../contexts/HabitsContext"
 import TopBar from "../TopBar"
 import BottomMenu from "../BottomMenu"
 import HabitCreator from "./HabitCreator"
@@ -9,16 +10,17 @@ import HabitCard from "./HabitCard"
 import styled from "styled-components"
 
 export default function Habits() {
-    const [habits, setHabits] = useState([])
+    const {habits, setHabits} = useContext(HabitsContext)
     const {create, setCreate} = useContext(HabitCreateContext)
     const { user } = useContext(UserContext)
     console.log(habits)
-    console.log(user.token)
+    
 
     
 
     useEffect(()=>{
         getHabits(user.token).then((res) => {setHabits(res.data)})
+        console.log(user.token)
     }, [])
 
     return(
