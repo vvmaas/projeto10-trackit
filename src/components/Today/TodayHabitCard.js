@@ -17,7 +17,7 @@
         if (checked === true) {
             habitUndone(user.token, id)
             setChecked(false)
-            if (high === curr) {
+            if (highest === current) {
                 setCurr(curr-1)
                 setHigh(high-1)
             } else {
@@ -28,7 +28,7 @@
         if (checked === false) {
             habitDone(user.token, id)
             setChecked(true)
-            if (high === curr) {
+            if (highest === current) {
                 setCurr(curr+1)
                 setHigh(high+1)
             } else {
